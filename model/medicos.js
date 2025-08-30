@@ -1,8 +1,7 @@
 class medicos {
-    constructor(nome, telefone, email,descricao){
+    constructor(nome, telefone,descricao){
         this.nome = nome;
         this.telefone = telefone;
-        this.email = email;
         this.descricao = descricao;
     }
 }

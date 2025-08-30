@@ -1,14 +1,14 @@
-import conexao from "../model/conexao";
-import medicos from "../model/medicos";
+import conexao from "../model/conexao.js";
+import medicos from "../model/medicos.js";
 
 class medicosController {
 
     static async adicionarMedicos(req, res) {
         try {
-            const { nome, telefone, email, descricao } = req.body;
-            const medico = new medicos(nome, telefone, email, descricao);
-            const query = 'INSERT INTO listamedica (nome, email , telefone , descricao) VALUES (?, ?, ?, ?)';
-            await conexao.query(query, [medico.nome, medico.email, medico.telefone, medico.descricao]);
+            const { nome, telefone, descricao } = req.body;
+            const medico = new medicos(nome, telefone, descricao);
+            const query = 'INSERT INTO listamedica (nome, telefone , descricao) VALUES (?, ?, ?)';
+            await conexao.query(query, [medico.nome, medico.telefone, medico.descricao]);
             return res.status(201).json({ message: "Médico criado com sucesso" });
         } catch (error) {
             return res.status(500).json({ error: error.message });
@@ -28,9 +28,9 @@ class medicosController {
     static async atualizarMedicos(req, res) {
         try {
             const id = req.params.id;
-            const {nome, telefone, email, descricao} = req.body;
-            const query = 'UPDATE listamedica SET   nome= ?, telefone = ?, email =?, descricao = ? WHERE id =?';
-            await conexao.query(query, [nome, telefone, email, descricao, id]);
+            const {nome, telefone, descricao} = req.body;
+            const query = 'UPDATE listamedica SET   nome= ?, telefone = ?, descricao = ? WHERE id =?';
+            await conexao.query(query, [nome, telefone, descricao, id]);
             return res.status(200).json({message:"Médico atualizado com sucesso"});
         } catch (error) {
             return res.status(500).json({ error: error.message });
